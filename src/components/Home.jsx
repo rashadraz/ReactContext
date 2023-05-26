@@ -1,27 +1,23 @@
 import { faker } from "@faker-js/faker";
 
-
 import SingleProduct from "./SingleProduct";
-
+import { CartState } from "../Context";
 faker.seed(20);
 
 function Home() {
-  const productsArray = [...Array(20)].map(() => ({
-    id: faker.datatype.uuid(),
-    name: faker.commerce.productName(),
-    price: faker.commerce.price(),
-    image: faker.image.url(),
-  }));
+	const { products } = CartState();
+	
 
-  console.log(productsArray);
-
-  return (
-    <div className="productContainer">
-      {productsArray.map((prod) => (
-        <SingleProduct prod={prod} key={prod.id} />
-      ))}
+	return (
+		<div style={{ textAlign: "center" }}>
+      <span style={{ fontSize: 30 }}>Products Page</span>
+      <div className="productContainer">
+        {products.map((prod) => (
+          <SingleProduct prod={prod} key={prod.id} />
+        ))}
+      </div>
     </div>
-  );
+	);
 }
 
 export default Home;
